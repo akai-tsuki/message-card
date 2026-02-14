@@ -33,8 +33,13 @@ const CardPreview = forwardRef<CardPreviewHandle, CardPreviewProps>(
       };
 
       updateScale();
+      const observer = new ResizeObserver(updateScale);
+      if (containerRef.current) observer.observe(containerRef.current);
       window.addEventListener('resize', updateScale);
-      return () => window.removeEventListener('resize', updateScale);
+      return () => {
+        observer.disconnect();
+        window.removeEventListener('resize', updateScale);
+      };
     }, []);
 
     // Render canvas whenever cardData changes
@@ -56,8 +61,8 @@ const CardPreview = forwardRef<CardPreviewHandle, CardPreviewProps>(
           height={CANVAS_CONFIG.height}
           className="card-preview-canvas"
           style={{
-            transform: `scale(${scale})`,
-            transformOrigin: 'top center',
+            width: `${CANVAS_CONFIG.width * scale}px`,
+            height: `${CANVAS_CONFIG.height * scale}px`,
           }}
           role="img"
           aria-label="Message card preview"

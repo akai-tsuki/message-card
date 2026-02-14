@@ -8,6 +8,10 @@
   padding: 2rem;
   text-align: center;
   border-bottom: 1px solid #dde1e7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .app-title {
@@ -24,6 +28,7 @@
   font-size: 1rem;
   color: #6b7280;
   margin: 0;
+  text-wrap: balance;
 }
 
 .app-main {
